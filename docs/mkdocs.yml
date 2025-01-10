@@ -1,1 +1,4 @@
 site_name: ADF Library
+site_url: https://adf-python.lakmal.dev
+theme:
+  name: material

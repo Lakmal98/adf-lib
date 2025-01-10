@@ -1,4 +1,4 @@
-# ADF Library 
+# ADF Library
 
 ## Overview
 ADF Library is a Python package for creating and manipulating ADF (Atlassian Document Format) documents. It provides a clean, type-safe API for building structured documents with support for headings, paragraphs, tables, and rich text formatting.

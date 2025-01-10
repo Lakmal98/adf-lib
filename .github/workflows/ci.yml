@@ -24,8 +24,6 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - name: Deploy to GitHub Pages
-        working-directory: docs
-        run: |
-          pip install mkdocs-material
-          mkdocs gh-deploy --force
+      - run: cd docs && mkdocs build
+      - run: pip install mkdocs-material 
+      - run: mkdocs gh-deploy --force
