@@ -14,8 +14,13 @@ theme:
     - navigation.indexes
     - toc.integrate 
     - search.share
+    - navigation.footer
+
 extra:
   version:
     provider: mike
     default: stable
     alias: true
+  social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/Lakmal98/adf-lib

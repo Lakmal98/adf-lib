@@ -1,32 +1,58 @@
-name: ci 
+name: Documentation Release
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*" # Trigger on version tags
+
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for mike to work with tags
+
+      - name: Get version from tag
+        id: get_version
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          echo "VERSION_NO_V=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
-          git config user.email lakmal+github-actions@users.noreply.github.com
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
-      - uses: actions/cache@v4
+          python-version: "3.x"
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
         with:
-          key: mkdocs-material-${{ env.cache_id }}
+          key: mkdocs-material-${{ hashFiles('docs/requirements.txt') }}
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - name: Build and Deploy
+
+      - name: Install dependencies
         run: |
           cd docs
-          pip install mkdocs-material
-          mkdocs build
-          mkdocs gh-deploy --force
+          pip install mkdocs-material mike
+
+      - name: Deploy Documentation
+        run: |
+          cd docs
+          mike deploy --config-file mkdocs.yml --push --message "Deployed ${{ steps.get_version.outputs.VERSION }}" ${{ steps.get_version.outputs.VERSION_NO_V }}
+          mike set-default --push ${{ steps.get_version.outputs.VERSION_NO_V }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
