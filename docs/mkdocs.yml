@@ -1,4 +1,21 @@
 site_name: ADF Library
-site_url: https://adf-python.lakmal.dev
+site_url: https://docs.py-adf.lakmal.dev/
 theme:
   name: material
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.prune
+    - navigation.indexes
+    - toc.integrate 
+    - search.share
+extra:
+  version:
+    provider: mike
+    default: stable
+    alias: true
