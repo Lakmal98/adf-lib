@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://docs.py-adf.lakmal.dev/v.1.1/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.py-adf.lakmal.dev/v.1.1/1.%20Getting%20Started/Installation/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.py-adf.lakmal.dev/v.1.1/1.%20Getting%20Started/Quick%20Start/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.py-adf.lakmal.dev/v.1.1/2.%20Core%20Components/Document%20Structure/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.py-adf.lakmal.dev/v.1.1/3.%20Examples/Examples/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.py-adf.lakmal.dev/v.1.1/4.%20Contribution/CODE_OF_CONDUCT/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.py-adf.lakmal.dev/v.1.1/4.%20Contribution/Contribution/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+</urlset>
