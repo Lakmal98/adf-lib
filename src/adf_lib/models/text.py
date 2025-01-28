@@ -107,3 +107,26 @@ class Text:
             paragraph["attrs"] = {"localId": local_id}
 
         return paragraph
+
+    @staticmethod
+    def merge_paragraphs(*paragraphs: dict, spacing: int = 1) -> dict:
+        """
+        Merge multiple paragraphs to a single inline paragraph.
+
+        Args:
+            paragraphs: The paragraphs to append
+            spacing: The spacing between paragraphs
+
+        Returns:
+            dict: The combined paragraph in ADF format
+        """
+        content = []
+        for p in paragraphs:
+            content.extend(p["content"])
+            content.append({"type": "text", "text": " " * spacing})  # Add spacing
+
+        # Remove the last added spacing
+        if content and spacing > 0:
+            content.pop()
+
+        return {"type": "paragraph", "content": content}

@@ -9,6 +9,10 @@ doc.add(Text("My Document").heading(HeadingLevel.H1))
 
 # Add a paragraph with a link
 link = Link(href="https://example.com", title="Example")
+p1 = Text("Hello I").paragraph()
+p2 = Text("am", "strong").paragraph()
+p3 = Text("a heading").heading()
+doc.add(Text.merge_paragraphs(p1, p2, p3,Text("Click here", link.to_mark(), "strong", 'em').paragraph()))
 doc.add(Text("Click here", link.to_mark(), "strong", 'em').paragraph())
 
 # Create a table
