@@ -20,7 +20,7 @@ class Mark:
             raise InvalidMarkError(f"Invalid mark: {self.type}")
 
         mark = {"type": mark_type}
-        if self.attrs:
+        if self.attrs is not None:
             mark["attrs"] = self.attrs
 
         return mark

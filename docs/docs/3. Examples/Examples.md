@@ -44,11 +44,21 @@ bullet_list = Node(
     content=[
         Node(
             NodeType.LIST_ITEM,
-            content=[Text("Create the change request").paragraph()],
+            content=[
+                Node(
+                    NodeType.PARAGRAPH,
+                    content=[Node(NodeType.TEXT, text="Create the change request")],
+                )
+            ],
         ),
         Node(
             NodeType.LIST_ITEM,
-            content=[Text("Validate the deployment").paragraph()],
+            content=[
+                Node(
+                    NodeType.PARAGRAPH,
+                    content=[Node(NodeType.TEXT, text="Validate the deployment")],
+                )
+            ],
         ),
     ],
 )

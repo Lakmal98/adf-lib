@@ -1,6 +1,6 @@
 # ADF Library
 
-ADF Library is a Python package for creating, validating, and exporting Atlassian Document Format (ADF) content for Jira, Confluence, and other Atlassian Cloud products.
+ADF Library is a Python package for creating and exporting Atlassian Document Format (ADF) content for Jira, Confluence, and other Atlassian Cloud products.
 
 ## Overview
 

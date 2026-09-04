@@ -34,7 +34,12 @@ doc.add(
         content=[
             Node(
                 NodeType.LIST_ITEM,
-                content=[Text("Service restored").paragraph()],
+                content=[
+                    Node(
+                        NodeType.PARAGRAPH,
+                        content=[Node(NodeType.TEXT, text="Service restored")],
+                    )
+                ],
             )
         ],
     )

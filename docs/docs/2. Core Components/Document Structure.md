@@ -58,7 +58,7 @@ class Text:
 class Node:
     type: Union[str, NodeType]
     attrs: Optional[dict] = None
-    content: List[dict] = field(default_factory=list)
+    content: Optional[List[Union[dict, Node, Table]]] = None
     text: Optional[str] = None
     marks: List[Union[str, dict, Mark]] = field(default_factory=list)
 ```
@@ -71,6 +71,14 @@ Use `Node` for:
 - status and date nodes
 - layout and media nodes
 - extension and expand nodes
+
+Pass child content as:
+
+- ADF dictionaries
+- `Node` instances
+- `Table` instances
+
+If you are using `Text`, first convert it with `.paragraph()` or `.heading()`. Those helper methods return ADF dictionaries, which are valid `content` items.
 
 ## Mark coverage
 
