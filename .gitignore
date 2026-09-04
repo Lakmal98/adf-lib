@@ -54,3 +54,6 @@ site/
 *.sqlite
 
 output.json
+
+# Atlassian validation samples
+samples/generated/

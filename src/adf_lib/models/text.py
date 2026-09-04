@@ -1,6 +1,7 @@
 from typing import List, Optional, Union
-from ..constants.enums import ContentType, TextType, MarkType, HeadingLevel
-from ..exceptions.validation import RequiredFieldError, InvalidMarkError
+from ..constants.enums import ContentType, TextType, HeadingLevel
+from ..exceptions.validation import RequiredFieldError
+from .mark import Mark, normalize_marks
 
 
 class Text:
@@ -12,7 +13,7 @@ class Text:
         marks: Optional list of marks to apply to the text
     """
 
-    def __init__(self, text: str, *marks: Union[str, dict]):
+    def __init__(self, text: str, *marks: Union[str, dict, Mark]):
         if not text:
             raise RequiredFieldError("text is required")
 
@@ -29,20 +30,7 @@ class Text:
         Returns:
             List[dict]: List of validated mark dictionaries
         """
-        accepted_marks = []
-        valid_marks = [mark.value for mark in MarkType]
-
-        for mark in marks:
-            if isinstance(mark, dict):
-                if mark["type"] not in valid_marks:
-                    raise InvalidMarkError(f"Invalid mark: {mark}")
-                accepted_marks.append(mark)
-            elif mark in valid_marks:
-                accepted_marks.append({"type": mark})
-            else:
-                raise InvalidMarkError(f"Invalid mark: {mark}")
-
-        return accepted_marks
+        return normalize_marks(marks)
 
     def _create_content(self) -> List[dict]:
         """

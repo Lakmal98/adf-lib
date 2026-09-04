@@ -1,5 +1,5 @@
 import pytest
-from adf_lib import HeadingLevel, Text
+from adf_lib import HeadingLevel, Mark, Text
 from adf_lib.exceptions.validation import InvalidMarkError, RequiredFieldError
 
 
@@ -73,3 +73,12 @@ def test_complex_formatting():
     assert len(content["marks"]) == 2
     assert any(mark["type"] == "textColor" for mark in content["marks"])
     assert any(mark["type"] == "strong" for mark in content["marks"])
+
+
+def test_paragraph_with_latest_mark_types():
+    """Test creating a paragraph with a latest-schema mark."""
+    text = Text("Paragraph", Mark("backgroundColor", {"color": "#172B4D"}))
+    paragraph = text.paragraph()
+    assert paragraph["content"][0]["marks"] == [
+        {"type": "backgroundColor", "attrs": {"color": "#172B4D"}}
+    ]
