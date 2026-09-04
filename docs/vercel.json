@@ -1,11 +1,10 @@
 {
   "builds": [
     {
-      "src": "mkdocs.yml",
+      "src": "build.sh",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "site",
-        "buildCommand": "mkdocs build"
+        "distDir": "site"
       }
     }
   ]
