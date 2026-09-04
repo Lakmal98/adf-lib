@@ -1,0 +1,10 @@
+services:
+  samples:
+    build: .
+    command: python samples/generate_samples.py
+    volumes:
+      - ./samples:/app/samples
+
+  test:
+    build: .
+    command: pytest -q -o addopts= tests

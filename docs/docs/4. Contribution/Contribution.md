@@ -22,4 +22,4 @@ If you encounter any issues, please create an issue in the repository.
 
 ## Documentation
 
-Please refer to the [documentation](https://docs.py-adf.lakmal.dev) for more information.
+Please refer to the [documentation](https://docs.py-adf.apps.lakmal.dev) for more information.

@@ -84,6 +84,8 @@ This keeps the public API small while allowing the library to emit the latest pu
 
 Project documentation is available in `/docs` and published at:
 
-- https://docs.py-adf.lakmal.dev/
+- https://docs.py-adf.apps.lakmal.dev/
+
+## References
 - https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/
 - http://go.atlassian.com/adf-json-schema

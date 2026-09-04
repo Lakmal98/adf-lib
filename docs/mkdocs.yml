@@ -1,5 +1,5 @@
 site_name: ADF Library
-site_url: https://docs.py-adf.lakmal.dev/
+site_url: https://docs.py-adf.apps.lakmal.dev/
 site_description: Python library for building Atlassian Document Format documents for Jira and Confluence.
 site_author: Dimuthu Lakmal
 theme:
