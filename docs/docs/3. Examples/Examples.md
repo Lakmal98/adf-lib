@@ -1,57 +1,61 @@
-### Creating a Document with Multiple Elements
+# Examples
+
+## Build common ADF content
 
 ```python
-from adf_lib import ADF, Text, Table, Link
-from adf_lib.constants.enums import HeadingLevel, TableLayout
+from adf_lib import ADF, Link, Table, Text
 
-# Create document
 doc = ADF()
+doc.add(Text("Weekly Update").heading())
+doc.add(Text("Everything looks healthy.").paragraph())
 
-# Add heading
-doc.add(Text("Project Report").heading(HeadingLevel.H1))
+link = Link(href="https://status.example.com", title="Status page")
+doc.add(Text("Open the status page", link.to_mark()).paragraph())
 
-# Add paragraph with formatting
-doc.add(Text("Executive Summary", "strong").paragraph())
-
-# Add link
-link = Link(href="https://example.com", title="More Info")
-doc.add(Text("See details here", link.to_mark()).paragraph())
-
-# Create table
-table = Table(
-    width=100,
-    is_number_column_enabled=True,
-    layout=TableLayout.CENTER
+table = Table(width=100)
+table.add_row(
+    [
+        table.header([Text("Service").paragraph()]),
+        table.header([Text("State").paragraph()]),
+    ]
 )
-
-# Add table header
-table.add_row([
-    table.header([Text("Category").paragraph()]),
-    table.header([Text("Value").paragraph()])
-])
-
-# Add table data
-table.add_row([
-    table.cell([Text("Revenue").paragraph()]),
-    table.cell([Text("$100,000").paragraph()])
-])
-
-# Add table to document
+table.add_row(
+    [
+        table.cell([Text("Search").paragraph()]),
+        table.cell([Text("Operational").paragraph()]),
+    ]
+)
 doc.add(table.to_dict())
-
-# Convert to dictionary
-result = doc.to_dict()
 ```
 
-### Advanced Text Formatting
+## Build newer schema nodes with `Node`
 
 ```python
-# Multiple formatting marks
-doc.add(Text("Important Notice", "strong", "underline").paragraph())
+from adf_lib import Mark, Node, NodeType, Text
 
-# Colored text
-doc.add(Text("Warning", {"type": "textColor", "attrs": {"color": "#FF0000"}}).paragraph())
+panel = Node(
+    NodeType.PANEL,
+    attrs={"panelType": "note"},
+    content=[Text("Remember to rotate the credentials.").paragraph()],
+)
 
-# Combined formatting
-doc.add(Text("Critical Update", "strong", "em", {"type": "textColor", "attrs": {"color": "#FF0000"}}).paragraph())
+bullet_list = Node(
+    NodeType.BULLET_LIST,
+    content=[
+        Node(
+            NodeType.LIST_ITEM,
+            content=[Text("Create the change request").paragraph()],
+        ),
+        Node(
+            NodeType.LIST_ITEM,
+            content=[Text("Validate the deployment").paragraph()],
+        ),
+    ],
+)
+
+highlighted_text = Node(
+    NodeType.TEXT,
+    text="Needs follow up",
+    marks=[Mark("backgroundColor", {"color": "#FFFAE6"})],
+)
 ```

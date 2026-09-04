@@ -14,3 +14,9 @@ class InvalidMarkError(ValidationError):
     """Exception raised when an invalid mark type is provided."""
 
     pass
+
+
+class InvalidNodeError(ValidationError):
+    """Exception raised when an invalid node type is provided."""
+
+    pass

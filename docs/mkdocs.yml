@@ -1,5 +1,7 @@
 site_name: ADF Library
 site_url: https://docs.py-adf.lakmal.dev/
+site_description: Python library for building Atlassian Document Format documents for Jira and Confluence.
+site_author: Dimuthu Lakmal
 theme:
   name: material
   features:
@@ -15,6 +17,25 @@ theme:
     - toc.integrate 
     - search.share
     - navigation.footer
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - attr_list
+  - toc:
+      permalink: true
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: 1. Getting Started/Installation.md
+      - Quick Start: 1. Getting Started/Quick Start.md
+  - Core Components:
+      - Document Structure: 2. Core Components/Document Structure.md
+  - Examples:
+      - Examples: 3. Examples/Examples.md
+  - Contribution:
+      - Contribution: 4. Contribution/Contribution.md
+      - Code of Conduct: 4. Contribution/CODE_OF_CONDUCT.md
 
 extra:
   version:
@@ -24,3 +45,4 @@ extra:
   social:
   - icon: fontawesome/brands/github
     link: https://github.com/Lakmal98/adf-lib
+  generator: false

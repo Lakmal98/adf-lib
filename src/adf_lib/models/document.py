@@ -24,7 +24,7 @@ class ADF:
         Args:
             content: The content element to add
         """
-        self.content.append(content)
+        self.content.append(content.to_dict() if hasattr(content, "to_dict") else content)
 
     def to_dict(self) -> dict:
         """

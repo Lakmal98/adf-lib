@@ -1,18 +1,20 @@
-### Document Structure
-The ADF document is composed of various content types organized in a hierarchical structure:
+# Document Structure
+
+ADF documents are hierarchical JSON objects with a root `doc` node, a `version`, and a `content` array.
 
 ```python
 {
     "version": 1,
     "type": "doc",
     "content": [
-        # Content elements go here
+        # child nodes
     ]
 }
 ```
 
-### Content Types
-The library supports the following content types:
+## Core helpers
+
+The library includes dedicated helpers for common ADF authoring:
 
 ```python
 class ContentType(Enum):
@@ -20,126 +22,71 @@ class ContentType(Enum):
     TABLE = "table"
 ```
 
-### Text Types
-Text content can be formatted as:
+## Latest node coverage
+
+For the latest published ADF schema, use `NodeType` with the generic `Node` builder.
 
 ```python
-class TextType(Enum):
-    HEADING = "heading"
+class NodeType(Enum):
     PARAGRAPH = "paragraph"
+    HEADING = "heading"
+    BULLET_LIST = "bulletList"
+    ORDERED_LIST = "orderedList"
+    LIST_ITEM = "listItem"
+    CODE_BLOCK = "codeBlock"
+    PANEL = "panel"
+    BLOCKQUOTE = "blockquote"
+    RULE = "rule"
+    HARD_BREAK = "hardBreak"
+    # ... plus cards, media, layout, task, decision, and extension nodes
 ```
 
-## Detailed API Reference
-
-### ADF Class
-The main document class that serves as a container for all content.
-
-```python
-class ADF:
-    def __init__(self, version: int = 1, type: str = "doc")
-    def add(self, content: dict) -> None
-    def to_dict(self) -> dict
-```
-
-#### Parameters:
-- `version`: Document version (default: 1)
-- `type`: Document type (default: "doc")
-
-#### Methods:
-- `add(content)`: Adds a content element to the document
-- `to_dict()`: Converts the document to a dictionary format
-
-### Text Class
-Handles text content with formatting.
+## Text helper
 
 ```python
 class Text:
-    def __init__(self, text: str, *marks: Union[str, dict])
+    def __init__(self, text: str, *marks: Union[str, dict, Mark])
     def heading(self, level: Union[int, HeadingLevel] = HeadingLevel.H1,
                 local_id: Optional[str] = None) -> dict
     def paragraph(self, local_id: Optional[str] = None) -> dict
 ```
 
-#### Parameters:
-- `text`: The text content
-- `marks`: Optional formatting marks
-
-#### Methods:
-- `heading()`: Creates a heading element
-- `paragraph()`: Creates a paragraph element
-
-### Table Class
-Handles table creation and manipulation.
-
-```python
-class Table:
-    def __init__(
-        self,
-        width: int,
-        is_number_column_enabled: bool = False,
-        layout: Union[str, TableLayout] = TableLayout.CENTER,
-        display_mode: Union[str, TableDisplayMode] = TableDisplayMode.DEFAULT
-    )
-    def header(self, content: List[dict], col_span: int = 1,
-               row_span: int = 1) -> dict
-    def cell(self, content: List[dict], col_span: int = 1,
-             row_span: int = 1) -> dict
-    def add_row(self, cells: List[dict]) -> None
-    def to_dict(self) -> dict
-```
-
-#### Parameters:
-- `width`: Table width (percentage)
-- `is_number_column_enabled`: Enable numbered columns
-- `layout`: Table layout style
-- `display_mode`: Display mode
-
-#### Methods:
-- `header()`: Creates a header cell
-- `cell()`: Creates a regular cell
-- `add_row()`: Adds a row to the table
-- `to_dict()`: Converts table to dictionary format
-
-### Link Class
-Handles hyperlinks in the document.
+## Generic node helper
 
 ```python
 @dataclass
-class Link:
-    href: str
-    title: Optional[str] = None
-    collection: Optional[str] = None
-    id: Optional[str] = None
-    occurrence_key: Optional[str] = None
+class Node:
+    type: Union[str, NodeType]
+    attrs: Optional[dict] = None
+    content: List[dict] = field(default_factory=list)
+    text: Optional[str] = None
+    marks: List[Union[str, dict, Mark]] = field(default_factory=list)
 ```
 
-#### Methods:
-- `to_mark()`: Converts link to mark format
+Use `Node` for:
 
-## Text Formatting
-The library supports various text formatting options through the `MarkType` enum:
+- lists
+- cards
+- panels
+- status and date nodes
+- layout and media nodes
+- extension and expand nodes
+
+## Mark coverage
+
+The library supports the existing text marks plus latest-schema marks through `MarkType` and `Mark`.
 
 ```python
 class MarkType(Enum):
-    CODE = "code"          # Code formatting
-    EM = "em"             # Emphasis (italic)
-    LINK = "link"         # Hyperlink
-    STRIKE = "strike"     # Strikethrough
-    STRONG = "strong"     # Bold
-    SUBSUP = "subsup"     # Subscript/Superscript
-    UNDERLINE = "underline"  # Underline
-    TEXT_COLOR = "textColor"  # Text color
-```
-
-## Tables
-Tables can be configured with different layouts and display modes:
-
-```python
-class TableLayout(Enum):
-    CENTER = "center"
-    ALIGN_START = "align-start"
-
-class TableDisplayMode(Enum):
-    DEFAULT = "default"
-    FIXED = "fixed"
+    ALIGNMENT = "alignment"
+    ANNOTATION = "annotation"
+    BACKGROUND_COLOR = "backgroundColor"
+    CODE = "code"
+    EM = "em"
+    LINK = "link"
+    STRIKE = "strike"
+    STRONG = "strong"
+    SUBSUP = "subsup"
+    TEXT_COLOR = "textColor"
+    UNDERLINE = "underline"
 ```
