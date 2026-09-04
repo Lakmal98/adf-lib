@@ -4,11 +4,9 @@
       "src": "mkdocs.yml",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "site"
+        "distDir": "site",
+        "buildCommand": "mkdocs build"
       }
     }
-  ],
-  "scripts": {
-    "build": "mkdocs build"
-  }
+  ]
 }
